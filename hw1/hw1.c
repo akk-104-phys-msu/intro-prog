@@ -27,6 +27,6 @@ int main(void)
 	       mon_mult(i*(i-1)/2+j, p, 1, -i);
      diff(6, p);
      for (int i = 0; i < 7; i++)
-	  printf("%lf x^%d\n", p[i], i);
+	  printf("%5.0lf*x^%d\n", p[i], i);
 }
   

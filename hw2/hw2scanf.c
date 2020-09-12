@@ -21,7 +21,7 @@ int main(void)
      alpha = atan(a/b);
      beta = atan(b/a);
 
-     printf("c = %f\nalpha = %f = %f deg.\nbeta = %f = %f\n",
+     printf("c = %f\nalpha = %.5f = %.2f deg.\nbeta = %.5f = %.2f\n",
 	    c, alpha, alpha*180/M_PI, beta, beta*180/M_PI);
      return EXIT_SUCCESS;
 }

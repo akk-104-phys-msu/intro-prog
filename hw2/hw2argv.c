@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
      alpha = atan(a/b);
      beta = atan(b/a);
 
-     printf("c = %f\nalpha = %f = %f deg.\nbeta = %f = %f deg.\n",
+     printf("c = %f\nalpha = %.5f = %.2f deg.\nbeta = %.5f = %.2f deg.\n",
 	    c, alpha, alpha*180/pi, beta, beta*180/pi);
      return EXIT_SUCCESS;
 }
