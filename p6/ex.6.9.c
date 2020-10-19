@@ -10,14 +10,15 @@ void closeFile(FILE *);
 int
 main(int argc, char *argv[])
 {
+     char *strings[] = {"12345", "just a string", " a b cd ", NULL};
      char *fn = "file.txt";
      FILE *fh;
      
      if (argc > 1)
 	  fn = argv[1];
-
+     
      fh = openFile(fn); // never NULL
-     writeFile(fh, argv+2);
+     writeFile(fh, argc > 2 ? argv+2 : strings);
      changeFile(fh);
      printFile(fh);
      closeFile(fh);
@@ -27,7 +28,7 @@ main(int argc, char *argv[])
 FILE *
 openFile(char *fn)
 {
-     FILE *fh = fopen(fn, "rw+");
+     FILE *fh = fopen(fn, "w+");
      if (!fh) {
 	  perror(NULL);
 	  exit(EXIT_FAILURE);
