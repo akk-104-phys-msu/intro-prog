@@ -1,4 +1,5 @@
 set term svg
+set key left top
 set output "plot.svg"
 set xlabel "-log10(eps)"
 set ylabel "iterations"
