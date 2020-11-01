@@ -1,0 +1,5 @@
+set term svg
+set output "plot.svg"
+set xlabel "-log10(eps)"
+set ylabel "iterations"
+plot 'res.txt' using (-log10($1)):2 title "bisect", 'res.txt' using (-log10($1)):3 title "newton"
