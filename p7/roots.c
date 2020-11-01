@@ -7,7 +7,7 @@ static inline double mid(double a, double b)
      return (a + b) / 2.0;
 }
 
-static inline bool close(double a, double b, double eps)
+static inline bool near(double a, double b, double eps)
 {
      return fabs(a - b)/(1 + fabs(a)) < eps;
 }
@@ -19,7 +19,7 @@ bisect(dfunc f, double eps, double a, double b, int *cnt)
      if (!cnt) cnt = &var;
      *cnt = 0;
      double ya = f(a), yb = f(b);
-     while (!close(a, b, eps)) {
+     while (!near(a, b, eps)) {
 	  double m = mid(a, b), ym = f(m);
 	  ++*cnt;
 	  if (ya * ym <= 0)
@@ -42,6 +42,6 @@ newton(dfunc f, dfunc df, double eps, double a, double b, int *cnt)
 	  x0 = x;
 	  x = x0 - f(x0)/df(x0);
 	  ++*cnt;
-     } while (!close(x, x0, eps));
+     } while (!near(x, x0, eps));
      return x;
 }
