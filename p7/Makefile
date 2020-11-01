@@ -2,9 +2,9 @@ LDLIBS = -lm
 .PHONY: all
 all: p7.30 plot.svg res.txt
 p7.30: p7.30.o roots.o
-plot.svg: res.txt
+plot.svg: gnuplot.gpl res.txt
 	gnuplot <gnuplot.gpl
-res.txt: p7.30
+res.txt: p7.30 proc.sh
 	./p7.30 | ./proc.sh >res.txt
 roots.o: roots.c roots.h
 p7.30.o: p7.30.c roots.h
