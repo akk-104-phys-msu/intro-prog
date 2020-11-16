@@ -13,14 +13,14 @@ program rectquad
   n2 = 4
   dx2 = dx1/2
   i = 1
-  s2 = s1 + oddsum(a, b, dx2, n2)
+  s2 = s1 + oddsum(a, dx2, n2)
   do while (abs(dx1*s1-dx2*s2) > eps)
      s1 = s2
      n1 = n2
      dx1 = dx2
      dx2 = dx2/2
      n2 = 2*n2
-     s2 = s2 + oddsum(a, b, dx2, n2)
+     s2 = s2 + oddsum(a, dx2, n2)
      i = i+1
   enddo
   write (*, *) i, dx2*s2
@@ -30,8 +30,8 @@ contains
     real, intent(in) :: x
     f = sin(x)/sqrt(x)
   end function f
-  real elemental function oddsum(a, b, dx, n)
-    real, intent(in) :: a,b,dx
+  real elemental function oddsum(a, dx, n)
+    real, intent(in) :: a,dx
     integer, intent(in) :: n
     integer :: i
     oddsum = 0

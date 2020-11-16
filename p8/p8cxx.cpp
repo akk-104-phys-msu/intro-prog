@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 
+#define UNUSED(x) ((void)(x))
+
 typedef long unsigned luint;
 
 template<typename Func>
@@ -10,8 +12,8 @@ class RectQuadrature {
      Func func;
      double sum;
 public:
-     RectQuadrature(double a, double b) { sum = func(a); };
-     double element(double a, double b) { return func(a); }
+     RectQuadrature(double a, double b) { UNUSED(b); sum = func(a); };
+     double element(double a, double b) { UNUSED(b); return func(a); }
      void update(double s) { sum += s; }
      double value(double dx)  { return sum * dx; }
 };
@@ -28,6 +30,7 @@ public:
 	  sum = 0;
      }
      double element(double a, double b)  {
+	  UNUSED(b);
 	  return func(a);
      }
      void update(double s) { sum += s; }
@@ -49,6 +52,7 @@ public:
 	  sum2 = 0;
      }
      double element(double a, double b) {
+	  UNUSED(b);
 	  return 4*func(a);
      }
      void update(double s) {
@@ -88,8 +92,9 @@ public:
      }
      int get_iter_cnt() const { return itcnt; }
      Quadrature(double aa, double ba, double epsa)
-	  :qstate{aa,ba}, a {aa}, b {ba}, eps {epsa},
-	   dx {b-a}, N {1}, itcnt {0} {}
+	  :qstate{aa,ba}, tolfun {}, itcnt {0},
+	   a {aa}, b {ba}, eps {epsa},
+	   dx {b-a}, N {1} {}
      void set_eps(double e) { eps = e; }
      double operator()(double epsa) {
 	  set_eps(epsa);
@@ -117,9 +122,14 @@ void run(Q &q, int cnt, const std::string &name)
      for (; cnt --> 0; eps/=10) {
 	  std::cout
 	       << std::left << std::scientific << std::setw(6)
-	       << std::setprecision(1) << eps << std::right << std::fixed
-	       << std::setprecision(15) << std::setw(24) << q(eps)
-	       << std::setw(8) << q.get_iter_cnt() << std::endl;
+	       << std::setprecision(1)
+	       << eps
+	       << std::right << std::fixed
+	       << std::setprecision(15) << std::setw(24)
+	       << q(eps)
+	       << std::setw(8)
+	       << q.get_iter_cnt()
+	       << std::endl;
      }
 }
 typedef Quadrature<RectQuadrature<Func>, Tolerance> Rectangle;
